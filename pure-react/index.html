@@ -16,15 +16,41 @@
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     ></script>
     <script>
+      const Person = (props) => {
+        return React.createElement("div", {}, [
+          React.createElement("h1", {}, props.name),
+          React.createElement("p", {}, props.occupation),
+        ]);
+      };
+
       const App = () => {
         return React.createElement("div", {}, [
           React.createElement("h1", { class: "title" }, "React IS rendered"),
+          React.createElement(
+            Person,
+            { name: "Gabriel", occupation: "developer" },
+            null
+          ),
+          React.createElement(
+            Person,
+            { name: "Saludos", occupation: "learner" },
+            null
+          ),
+          React.createElement(
+            Person,
+            { name: "Moris", occupation: "musician" },
+            null
+          ),
         ]);
       };
-      ReactDOM.render(
-        React.createElement(App),
-        document.getElementById("root")
-      );
+
+      // this was the way to render before v18
+      // ReactDOM.render(React.createElement(App), document.getElementById("root"));
+
+      // NOW sould be like this
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(React.createElement(App));
     </script>
   </body>
 </html>

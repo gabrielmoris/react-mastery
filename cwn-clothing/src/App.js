@@ -1,8 +1,12 @@
-import { categories } from "./static-data/categories";
-import Directory from "./components/directory/directory.component";
+import Home from "./routes/home/home.component";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  return <Directory categories={categories} />;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+  );
 };
 
 export default App;

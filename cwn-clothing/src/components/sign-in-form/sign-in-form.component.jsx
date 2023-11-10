@@ -30,7 +30,22 @@ const SigninForm = () => {
       const res = await signInAuthUserWithEmailAndPassword(email, password);
       console.log(res);
       resetFormFields();
-    } catch (e) {}
+    } catch (e) {
+      switch (e.code) {
+        case "auth/wrong-password":
+          alert("Incorrect Password or E-Mail");
+          break;
+        case "auth/invalid-login-credentials":
+          alert("Incorrect Password or E-Mail");
+          break;
+        case "auth/user-not-found":
+          alert("This user doesn't exist");
+          break;
+        default:
+          alert("Unknown error");
+          console.log(e);
+      }
+    }
   };
 
   const handleChange = (event) => {
@@ -47,7 +62,7 @@ const SigninForm = () => {
         <FormInput type="password" required name="password" value={password} onChange={handleChange} label={"Password"} />
 
         <div className="buttons-container">
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google Sign In
           </Button>
           <Button type="submit">Sign In</Button>

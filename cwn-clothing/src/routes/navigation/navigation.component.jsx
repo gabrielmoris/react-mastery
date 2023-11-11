@@ -7,12 +7,7 @@ import { signOutUSer } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
   // This hook will rerun the functions before the return even if I dont use the value.
-  const { currentUser, setCurrentUSer } = useContext(UserContext);
-
-  const signOutHandler = async () => {
-    await signOutUSer();
-    setCurrentUSer(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   return (
     <>
@@ -27,7 +22,7 @@ const Navigation = () => {
             SHOP
           </Link>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutHandler}>
+            <span className="nav-link" onClick={signOutUSer}>
               SIGN OUT
             </span>
           ) : (

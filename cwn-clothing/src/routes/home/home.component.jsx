@@ -1,8 +1,13 @@
-import { categories } from "../../static-data/categories.js";
 import Directory from "../../components/directory/directory.component.jsx";
+import { Outlet } from "react-router";
 
 const Home = () => {
-  return <Directory categories={categories} />;
+  return (
+    <div>
+      <Directory />
+      <Outlet />
+    </div>
+  );
 };
 
 export default Home;

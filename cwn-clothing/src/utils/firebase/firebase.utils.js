@@ -94,4 +94,4 @@ export const signOutUSer = async () => {
   return signOut(auth);
 };
 
-export const onAuthStateChangedListenr = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);

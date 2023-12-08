@@ -4,7 +4,7 @@ import { CategoriesPreview } from "../../routes/categories-preview/categories-pr
 import { Category } from "../../routes/category/catgory.component";
 import { useEffect } from "react";
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
-import { setCategoriesMap } from "../../store/categories/category.action";
+import { setCategories } from "../../store/categories/category.action";
 import { useDispatch } from "react-redux";
 
 export default function Shop() {
@@ -12,8 +12,8 @@ export default function Shop() {
   useEffect(() => {
     // the best way to call an async function in a useEffect is to actually create a async function inside
     const getCategoriesMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments();
-      dispatch(setCategoriesMap(categoryMap));
+      const categoriesArray = await getCategoriesAndDocuments();
+      dispatch(setCategories(categoriesArray));
     };
     getCategoriesMap();
     // eslint-disable-next-line react-hooks/exhaustive-deps

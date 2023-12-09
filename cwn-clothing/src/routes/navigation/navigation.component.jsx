@@ -3,19 +3,21 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { NavigationContainer, NavLinks, NavLink, LogoContainer } from "./navigation.styles.jsx";
 import { CartIcon } from "../../components/cart-icon/cart-icon.component";
 import { CartDropdown } from "../../components/cart-dropdown/cart-dropdown.component";
-import { useContext } from "react";
+// import { useContext } from "react";
 // import { UserContext } from "../../context/user.context";
-import { CartContext } from "../../context/cart.context";
+// import { CartContext } from "../../context/cart.context";
 import { signOutUSer } from "../../utils/firebase/firebase.utils";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
+import { selectCartIsOpen } from "../../store/cart/cart.selector.js";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const isCartOpen = useSelector(selectCartIsOpen);
 
   // This hook will rerun the functions before the return even if I dont use the value.
   // const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  // const { isCartOpen } = useContext(CartContext);
 
   return (
     <>

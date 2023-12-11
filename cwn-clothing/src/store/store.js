@@ -1,7 +1,7 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
+import { thunk } from "redux-thunk";
 import { rootReducer } from "./root-reducer";
 import { loggerMiddleware } from "../middleware/logger";
 
@@ -14,7 +14,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // this is pretty interesting, by filtering boolean I become the actual output if it is true!
-const middleWares = [process.env.NODE_ENV !== "production" && loggerMiddleware].filter(Boolean);
+const middleWares = [process.env.NODE_ENV !== "production" && loggerMiddleware, thunk].filter(Boolean);
 
 const composeEnhancer = (process.env.NODE_ENV !== "production" && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));

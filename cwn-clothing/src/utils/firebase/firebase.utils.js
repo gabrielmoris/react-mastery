@@ -9,7 +9,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { collection, writeBatch, query, getDocs, getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,11 +40,17 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-export const signinWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signinWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 export const db = getFirestore();
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, field = "title") => {
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd,
+  field = "title"
+) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
 
@@ -56,7 +71,10 @@ export const getCategoriesAndDocuments = async () => {
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInfo = {}
+) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
@@ -66,7 +84,12 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     const createdAt = new Date();
 
     try {
-      await setDoc(userDocRef, { displayName, email, createdAt, ...additionalInfo });
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalInfo,
+      });
     } catch (e) {
       console.log("Error creating the user in DB: ", e);
     }
@@ -88,4 +111,18 @@ export const signOutUSer = async () => {
   return signOut(auth);
 };
 
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscrube = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscrube();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};

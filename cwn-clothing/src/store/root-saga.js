@@ -1,8 +1,9 @@
 import { all, call } from "redux-saga/effects";
 import { categoriesSaga } from "./categories/category.saga";
+import { userSagas } from "./user/user.saga";
 
 export function* rootSaga() {
-  yield all([call(categoriesSaga)]);
+  yield all([call(categoriesSaga), call(userSagas)]);
 }
 
 // In JavaScript, the function* syntax is used to declare a generator function.

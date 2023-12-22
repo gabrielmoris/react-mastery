@@ -6,6 +6,7 @@ import Shop from "./routes/shop/shop.component.jsx";
 import { Checkout } from "./routes/checkout/checkout.component.jsx";
 import { useEffect } from "react";
 import { checkUserSession } from "./store/user/user.action.js";
+import { useDispatch } from "react-redux";
 // import {
 //   createUserDocumentFromAuth,
 //   getCurrentUser,
@@ -15,10 +16,10 @@ import { checkUserSession } from "./store/user/user.action.js";
 // import { useDispatch } from "react-redux";
 
 const App = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    checkUserSession();
+    dispatch(checkUserSession());
     // getCurrentUser().then((user) => console.log(user));
     // const unsubscribe = onAuthStateChangedListener((user) => {
     //   if (user) {

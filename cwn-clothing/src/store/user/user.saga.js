@@ -18,13 +18,13 @@ export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
       userAuth,
       additionalDetails
     );
-    console.log(userSnapshot, userSnapshot.data());
+      yield put(signInSuccess({id:userSnapshot.id,...userSnapshot.data()}))
   } catch (e) {
     yield put(signInFailure(e));
   }
 }
 
-export function* isUserAuThenticated() {
+export function* isUserAuthenticated() {
   try {
     const userAuth = yield call(getCurrentUser);
     if (!userAuth) return;
@@ -35,7 +35,7 @@ export function* isUserAuThenticated() {
 }
 
 export function* onCheckUserSession() {
-  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuThenticated);
+  yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 export function* userSagas() {

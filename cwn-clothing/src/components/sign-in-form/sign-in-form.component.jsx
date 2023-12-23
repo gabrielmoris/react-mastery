@@ -1,8 +1,16 @@
 import { useState } from "react";
-import { signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+// import {
+//   signInWithGooglePopup,
+//   signInAuthUserWithEmailAndPassword,
+// } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import "./sign-in-form.styles.scss";
+import { useDispatch } from "react-redux";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../store/user/user.action";
 
 const defautFormFields = {
   email: "",
@@ -10,6 +18,7 @@ const defautFormFields = {
 };
 
 const SigninForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defautFormFields);
 
   const { email, password } = formFields;
@@ -19,14 +28,14 @@ const SigninForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart());
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
 
       resetFormFields();
     } catch (e) {
@@ -57,11 +66,29 @@ const SigninForm = () => {
       <h2>You already have an account?</h2>
       <span>Sign in with your Email and Password</span>
       <form onSubmit={handleSubmit}>
-        <FormInput type="email" required name="email" value={email} onChange={handleChange} label={"Email"} />
-        <FormInput type="password" required name="password" value={password} onChange={handleChange} label={"Password"} />
+        <FormInput
+          type="email"
+          required
+          name="email"
+          value={email}
+          onChange={handleChange}
+          label={"Email"}
+        />
+        <FormInput
+          type="password"
+          required
+          name="password"
+          value={password}
+          onChange={handleChange}
+          label={"Password"}
+        />
 
         <div className="buttons-container">
-          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
+          <Button
+            type="button"
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={signInWithGoogle}
+          >
             Google Sign In
           </Button>
           <Button type="submit">Sign In</Button>

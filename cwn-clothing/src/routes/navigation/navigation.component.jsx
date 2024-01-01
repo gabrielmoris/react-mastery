@@ -6,15 +6,20 @@ import { CartDropdown } from "../../components/cart-dropdown/cart-dropdown.compo
 // import { useContext } from "react";
 // import { UserContext } from "../../context/user.context";
 // import { CartContext } from "../../context/cart.context";
-import { signOutUSer } from "../../utils/firebase/firebase.utils";
-import { useSelector } from "react-redux";
+// import { signOutUSer } from "../../utils/firebase/firebase.utils";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
 import { selectCartIsOpen } from "../../store/cart/cart.selector.js";
+import { signOutStart } from "../../store/user/user.action.js";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectCartIsOpen);
 
+  //Using SAGAS
+  const signOutUSer = () => dispatch(signOutStart());
+  ///
   // This hook will rerun the functions before the return even if I dont use the value.
   // const { currentUser } = useContext(UserContext);
   // const { isCartOpen } = useContext(CartContext);

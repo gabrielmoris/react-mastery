@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import "./sign-up-form.styles.scss";
 import Button from "../button/button.component";
+import { signUpStart } from "../../store/user/user.action";
 
 const defautFormFields = {
   displayName: "",
@@ -15,6 +17,7 @@ const SignupForm = () => {
   const [formFields, setFormFields] = useState(defautFormFields);
 
   const { displayName, email, password, confirmPassword } = formFields;
+  const dispatch = useDispatch();
 
   const resetFormFields = () => {
     setFormFields(defautFormFields);
@@ -27,9 +30,13 @@ const SignupForm = () => {
       return;
     }
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      //this was without sagas
+      // const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
-      await createUserDocumentFromAuth(user, { displayName });
+      // await createUserDocumentFromAuth(user, { displayName });
+
+      //with sagas
+      dispatch(signUpStart(email, password, displayName));
 
       resetFormFields();
     } catch (e) {

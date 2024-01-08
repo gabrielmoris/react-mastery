@@ -1,0 +1,6 @@
+[build]
+  # Set the build command
+  command = "yarn build"
+
+  # Set the directory to publish (change this if needed)
+  publish = "build"

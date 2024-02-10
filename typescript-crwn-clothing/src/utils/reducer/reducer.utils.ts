@@ -1,4 +1,20 @@
-// import { AnyAction } from "redux";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+import { AnyAction } from "redux";
+
+type Matchable<AC extends () => AnyAction> = AC & { type: ReturnType<AC>["type"]; match(action: AnyAction): action is ReturnType<AC> };
+
+export function withMatcher<AC extends () => AnyAction & { type: string }>(actionCreator: AC): Matchable<AC>;
+export function withMatcher<AC extends (...args: any[]) => AnyAction & { type: string }>(actionCreator: AC): Matchable<AC>;
+export function withMatcher(actionCreator: Function) {
+  const type = actionCreator().type;
+  return Object.assign(actionCreator, {
+    type,
+    match(action: AnyAction) {
+      return action.type === type;
+    },
+  });
+}
 
 export type ActionWithPayload<T, P> = {
   type: T;

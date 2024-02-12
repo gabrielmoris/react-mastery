@@ -1,7 +1,8 @@
 import { createSelector } from "reselect";
 import { CartState } from "./cart.reducer";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const selectCartReducer = (state: any): CartState => state.cart;
+import { RootState } from "../store";
+
+const selectCartReducer = (state: RootState): CartState => state.cart;
 
 export const selectCartItems = createSelector([selectCartReducer], (cart) => cart.cartItems);
 

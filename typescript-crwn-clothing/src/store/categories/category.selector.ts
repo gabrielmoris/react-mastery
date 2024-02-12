@@ -1,9 +1,9 @@
 import { createSelector } from "reselect";
 import { CategoriesState } from "./category.reducer";
 import { CategoryMap } from "./category.types";
+import { RootState } from "../store";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const selectCategoryReducer = (state: any): CategoriesState => state.categories;
+const selectCategoryReducer = (state: RootState): CategoriesState => state.categories;
 
 export const selectCategories = createSelector([selectCategoryReducer], (categoriesSlice) => categoriesSlice.categories);
 

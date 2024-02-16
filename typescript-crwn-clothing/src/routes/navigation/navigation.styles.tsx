@@ -1,5 +1,9 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link as RouterLink, LinkProps } from "react-router-dom";
+import { ReactNode } from "react";
+
+// Create a new component that forwards all props to the Link component
+const Link = ({ children, ...props }: LinkProps & { children?: ReactNode }) => <RouterLink {...props}>{children}</RouterLink>;
 
 export const NavigationContainer = styled.div`
   height: 70px;

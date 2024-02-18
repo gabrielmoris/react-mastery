@@ -5,7 +5,7 @@ import ProductCard from "../../components/product-card/product-card.component";
 
 import { CategoryContainer, Title } from "./category.styles";
 import Spinner from "../../components/spinner/spinner.component";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const GET_CATEGORY = gql`
   query ($title: String!) {
@@ -22,6 +22,22 @@ const GET_CATEGORY = gql`
   }
 `;
 
+// example of mutation
+// const SET_CATEGORIES = gql`
+//   mutation ($category: Category!) {
+//     addCategory(category: $category) {
+//       id
+//       title
+//       items {
+//         id
+//         name
+//         price
+//         imageUrl
+//       }
+//     }
+//   }
+// `;
+
 const Category = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
@@ -31,6 +47,10 @@ const Category = () => {
       title: category,
     },
   });
+
+  // Example of mutation
+  // const [addCategory, { loading, error, data }] = useMutation(SET_CATEGORIES);
+  // addCategory({ variables: { category: categoryObject } });
 
   useEffect(() => {
     if (data) {

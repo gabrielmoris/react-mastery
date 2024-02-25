@@ -5,9 +5,9 @@ it("calls swapi to get people", () => {
   // certain number of assertions are called during a
   // test. This is often useful when testing asynchronous
   //code, in order to make sure that assertions in a
-  //callback actually got called.
+  //callback actually got called. It is important to also return for the test to wait for the result.
   expect.assertions(1);
-  return swapi.getPeople(fetch).then((data) => {
+  return swapi.getPeople().then((data) => {
     expect(data.count).toEqual(87);
   });
 });
@@ -21,7 +21,7 @@ it("calls swapi to get people with promise", () => {
 });
 
 it("getPeople returns count and results", () => {
-  mockFetch = jest.fn().mockReturnValue(
+  const mockFetch = jest.fn().mockReturnValue(
     Promise.resolve({
       json: () =>
         Promise.resolve({

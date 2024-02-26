@@ -2,6 +2,7 @@
 
 exports[`correnctly increments the counter 1`] = `
 <button
+  color="red"
   id="counter"
   onClick={[Function]}
 >
@@ -12,6 +13,7 @@ exports[`correnctly increments the counter 1`] = `
 
 exports[`renders without crashing 1`] = `
 <button
+  color="red"
   id="counter"
   onClick={[Function]}
 >

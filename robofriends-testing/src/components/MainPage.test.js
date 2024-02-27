@@ -74,3 +74,7 @@ it('fileters Robots correctly 2', () => {
   expect(wrapper.instance().filterRobots()).toEqual([]);
 });
 
+it('fileters Robots correctly 3', () => {
+  expect(wrapper.instance().filterRobots()).toEqual([]);
+});
+

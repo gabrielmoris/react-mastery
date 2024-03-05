@@ -56,7 +56,9 @@ describe("navigation tests", () => {
   });
 
   test("It should dispatch signOutStart action when clicking on the sign out link", async () => {
+    //1. Here I mock the useDispatch function from React Redux
     const mockDispatch = jest.fn();
+    //2. Here I spy this function from Redux and return the mocked Function
     jest.spyOn(reactRedux, "useDispatch").mockReturnValue(mockDispatch);
 
     renderWithProviders(<Navigation />, {
@@ -71,7 +73,9 @@ describe("navigation tests", () => {
 
     await fireEvent.click(signOutLinkElement);
 
+    //3. Here I check if it was called
     expect(mockDispatch).toHaveBeenCalled();
+    //4. Here I check If the right action was called
     const signOutAction = signOutStart();
     expect(mockDispatch).toHaveBeenCalledWith(signOutAction);
   });

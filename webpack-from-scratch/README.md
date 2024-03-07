@@ -59,3 +59,5 @@ module.exports = {
      }),
    ],
    ```
+
+9. In `package.json` add in scripts `"build": "webpack --mode production"`

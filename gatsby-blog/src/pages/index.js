@@ -17,8 +17,11 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <div>
-        <h1>Gabriel cmoris Blog</h1>
-        <h4>{data.allMarkdownRemark.totalCount}</h4>
+        <h1>Gabrielcmoris Blog</h1>
+        <h4>
+          {data.allMarkdownRemark.totalCount}{" "}
+          {data.allMarkdownRemark.totalCount > 1 ? "Posts" : "Post"}
+        </h4>
         {data.allMarkdownRemark.edges.map(({ node }) => {
           return (
             <div key={node.id}>

@@ -1,8 +1,17 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-
+import styled from "styled-components"
+import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+
+const BlogLink = styled(Link)`
+  text-decoration: none;
+`
+const BlogTitle = styled.h3`
+  margin-bottom: 20px;
+  color: blue;
+`
 
 const IndexPage = ({ data }) => {
   return (
@@ -13,9 +22,11 @@ const IndexPage = ({ data }) => {
         {data.allMarkdownRemark.edges.map(({ node }) => {
           return (
             <div key={node.id}>
-              <h2>
-                {node.frontmatter.title} - {node.frontmatter.date}
-              </h2>
+              <BlogLink to={node.fields.slug}>
+                <BlogTitle>
+                  {node.frontmatter.title} - {node.frontmatter.date}
+                </BlogTitle>
+              </BlogLink>
               <p>{node.excerpt}</p>
             </div>
           )
@@ -36,7 +47,7 @@ export default IndexPage
 
 export const query = graphql`
   query {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
           id
@@ -44,6 +55,9 @@ export const query = graphql`
             description
             title
             date
+          }
+          fields {
+            slug
           }
           html
           excerpt
